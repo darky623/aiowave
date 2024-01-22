@@ -17,11 +17,16 @@ class DatabaseConnection:
             data = cur.fetchall()
         return data
 
-    def create(self, table, params, values):
-        query = f"INSERT INTO {table} {params} VALUES {str(values)}"
+    def create(self, table, data):
+        columns = ', '.join(data.keys())
+        placeholders = ', '.join(['?'] * len(data))
+        values = tuple(data.values())
+
+        query = f"INSERT INTO {table} ({columns}) VALUES ({placeholders})"
+
         with self.conn:
             cur = self.conn.cursor()
-            cur.execute(query)
+            cur.execute(query, values)
             last_inserted_id = cur.lastrowid
 
         return last_inserted_id
@@ -56,12 +61,4 @@ class DatabaseConnection:
 
         query += " AND ".join(conditions)
 
-        result = []
-        rows = self.execute_query(query, tuple(params.values()))
-        columns = [column[0] for column in self.conn.cursor().description]
-
-        for row in rows:
-            row_dict = dict(zip(columns, row))
-            result.append(row_dict)
-
-        return result
+        return self.execute_query(query, tuple(params.values()))
