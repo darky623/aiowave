@@ -156,7 +156,11 @@ async def delete_post(db, data):
     if token and post_id:
         user_id = check_auth_token(db, token)
         if user_id:
-            post = db.read("posts", {"id": post_id, "user_id": user_id})
+            post = db.read("posts", {
+                "id": post_id,
+                "user_id": user_id,
+                "status": "active"})
+
             if post:
                 db.update("posts", post_id, {"status": "deleted"})
                 response_data = [{"status": "Successfully deleted"}]
