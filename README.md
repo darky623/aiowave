@@ -65,7 +65,7 @@ Backend of simple social network for everyone
       + post_id (int) (required)
 
      Response: Array:
-       + `{"post_id": post_id (int)}`
+       + `"post_id": post_id (int)`
        + `"likes": number of likes (int)`
        + `"user_like": user like status (boolean)`
 
