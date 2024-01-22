@@ -53,7 +53,7 @@ Backend of simple social network for everyone
       + `"author_id": author id (int)`
       + `"author_name": author nickname (str)`
       + `"text": text (str)`
-      + `"date_created": date_created (str) (%d/%m/%Y %H:%M:%S)`
+      + `"date_create": created date (str) (%d/%m/%Y %H:%M:%S)`
       + `"likes": number of likes (int)`
       + `"user_like":  user like status (boolean)`
 
